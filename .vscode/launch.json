@@ -9,7 +9,7 @@
           "--timeout",
           "999999",
           "--colors",
-          "${workspaceFolder}/test/what-season.test.js"
+          "${workspaceFolder}/test/transform-array.test.js"
         ],
         "internalConsoleOptions": "openOnSessionStart",
         "name": "Mocha Tests",
