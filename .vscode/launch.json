@@ -9,7 +9,7 @@
           "--timeout",
           "999999",
           "--colors",
-          "${workspaceFolder}/test/transform-array.test.js"
+          "${workspaceFolder}/test/simple-chain.test.js"
         ],
         "internalConsoleOptions": "openOnSessionStart",
         "name": "Mocha Tests",
