@@ -9,7 +9,7 @@
           "--timeout",
           "999999",
           "--colors",
-          "${workspaceFolder}/test/simple-chain.test.js"
+          "${workspaceFolder}/test/recursive-depth.test.js"
         ],
         "internalConsoleOptions": "openOnSessionStart",
         "name": "Mocha Tests",
