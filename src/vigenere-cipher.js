@@ -30,21 +30,53 @@ class VigenereCipheringMachine {
     this.isDirect = isDirect
   }
 
-  encrypt(/* message, key */) {
-  //   if (arguments.length < 2) {
-  //     throw new Error("Incorrect arguments!");
-  //   }
+  encrypt(message, key) {
+    if (arguments.length < 2) {
+      throw new Error("Incorrect arguments!");
+    }
 
-  //   const mapArray = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-  //   // const decodeArray = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'.split('');
+    const mapArray = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split("");
 
-  //   const messageInUppercase = message.toUppercase();
+    const messageArr = message.toUpperCase().split("");
 
-  //   const messageIndexes = [];
+    key = key.toUpperCase();
 
+    const originalIndexes = messageArr.map((currentValue) => {
+      if (mapArray.includes(currentValue)) {
+        return mapArray.indexOf(currentValue);
+      } else {
+        return currentValue;
+      }
+    })
 
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+    let i = 0;
+    const keyIndexes = originalIndexes.map((currentValue, index) => {
+      if (typeof currentValue === "number") {
+        let result = mapArray.indexOf(key[i % key.length]);
+        i++;
+        return result;
+      } else {
+        return " ";
+      }
+    })
+
+    const encryptIndexes = originalIndexes.map((currentValue, index) => {
+      if (typeof currentValue === "number") {
+        return (currentValue + keyIndexes[index]) % mapArray.length;
+      } else {
+        return currentValue;
+      }
+    })
+
+    const encryptedMessageArr = encryptIndexes.map((currentValue, index) => {
+      if (typeof currentValue === "number") {
+        return mapArray[currentValue];
+      } else {
+        return currentValue;
+      }
+    })
+
+    return encryptedMessageArr.join("");
 
   }
 

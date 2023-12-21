@@ -9,7 +9,7 @@
           "--timeout",
           "999999",
           "--colors",
-          "${workspaceFolder}/test/extended-repeater.test"
+          "${workspaceFolder}/test/vigenere-cipher.test.js"
         ],
         "internalConsoleOptions": "openOnSessionStart",
         "name": "Mocha Tests",

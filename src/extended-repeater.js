@@ -20,7 +20,6 @@ function repeater(str, options) {
     str = String(str);
   }
 
-  // let results = [];
   let currentEl = "";
 
   if (options.additionSeparator === undefined) {
