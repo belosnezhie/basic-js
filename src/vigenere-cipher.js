@@ -27,11 +27,13 @@ class VigenereCipheringMachine {
     if (isDirect === undefined) {
       this.isDirect = true;
     }
-    this.isDirect = isDirect
+    this.isDirect = isDirect;
   }
 
   encrypt(message, key) {
-    if (arguments.length < 2) {
+    if (arguments.length < 2
+      || typeof message !== 'string'
+      || typeof key !== 'string') {
       throw new Error("Incorrect arguments!");
     }
 
@@ -50,7 +52,7 @@ class VigenereCipheringMachine {
     })
 
     let i = 0;
-    const keyIndexes = originalIndexes.map((currentValue, index) => {
+    const keyIndexes = originalIndexes.map((currentValue) => {
       if (typeof currentValue === "number") {
         let result = mapArray.indexOf(key[i % key.length]);
         i++;
@@ -76,19 +78,80 @@ class VigenereCipheringMachine {
       }
     })
 
-    return encryptedMessageArr.join("");
+    let result;
 
+    if (this.isDirect === false) {
+      result = encryptedMessageArr.reverse().join("");
+    } else {
+      result = encryptedMessageArr.join("");
+    }
+
+    return result;
   }
 
-  decrypt(/* encryptedMessage, key */) {
-    // if (arguments.length < 2) {
-    //   throw new Error("Incorrect arguments!");
-    // }
+  decrypt(encryptedMessage, key) {
+    if (arguments.length < 2
+      || typeof encryptedMessage !== 'string'
+      || typeof key !== 'string') {
+      throw new Error("Incorrect arguments!");
+    }
 
+    const mapArray = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split("");
 
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    const encryptedMessageArr = encryptedMessage.toUpperCase().split("");
 
+    key = key.toUpperCase();
+
+    const encryptIndexes = encryptedMessageArr.map((currentValue) => {
+      if (mapArray.includes(currentValue)) {
+        return mapArray.indexOf(currentValue);
+      } else {
+        return currentValue;
+      }
+    })
+
+    let i = 0;
+    const keyIndexes = encryptIndexes.map((currentValue) => {
+      if (typeof currentValue === "number") {
+        let result = mapArray.indexOf(key[i % key.length]);
+        i++;
+        return result;
+      } else {
+        return " ";
+      }
+    })
+
+    const originalIndexes = encryptIndexes.map((currentValue, index) => {
+      if (typeof currentValue === "number") {
+        let originalIndex = (currentValue - keyIndexes[index]) % mapArray.length;
+
+        if (originalIndex < 0) {
+          originalIndex = (originalIndex + mapArray.length) % mapArray.length;
+        }
+
+        return originalIndex;
+      } else {
+        return currentValue;
+      }
+    })
+
+    const decryptedMessageArr = originalIndexes.map((currentValue, index) => {
+      if (typeof currentValue === "number") {
+        return mapArray[currentValue];
+      } else {
+        return currentValue;
+      }
+    })
+
+    let result;
+
+    if (this.isDirect === false) {
+      result = decryptedMessageArr.reverse().join("");
+    } else {
+      result = decryptedMessageArr.join("");
+    }
+
+    return result;
   }
 }
 
